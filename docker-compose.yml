@@ -1,21 +1,17 @@
-version: '2'
+version: '3'
 
 services:
-  rabbitmq:
-    image: 'bitnami/rabbitmq:latest'
-    labels:
-      kompose.service.type: nodeport
-    ports:
-      - '4369:4369'
-      - '5672:5672'
-      - '25672:25672'
-      - '15672:15672'
+
+  php-cli:
+    image: 'thecodingmachine/php:7.2-v1-cli'
     volumes:
-      - 'rabbitmq_data:/bitnami'
-#  myapp:
-#    image: 'YOUR_APPLICATION_IMAGE'
-#    networks:
-#      - app-tier
-volumes:
-  rabbitmq_data:
-    driver: local
+      - './:/usr/src/app:delegated'
+    environment:
+      PHP_EXTENSIONS: bcmath
+
+  rabbitmq:
+    image: "rabbitmq:3-management"
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+
