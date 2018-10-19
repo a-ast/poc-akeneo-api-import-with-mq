@@ -18,7 +18,7 @@ rabbitmqctl list_queues
 Run consumer (from container)
 
 ```
-./daemon/rabbitmq-cli-consumer -c ./daemon/daemon.conf --executable "php worker.php" --verbose
+./bin/daemon/rabbitmq-cli-consumer -c ./bin/daemon/daemon.conf --executable "php worker.php" --verbose
 ```
 
 
