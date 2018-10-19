@@ -1,4 +1,4 @@
-# Proof of Concept for the data import to Akeneo using its REST API and RabbitMQ
+# Proof of Concept: data import to Akeneo using its REST API and RabbitMQ
 
 
 ## Commands
@@ -22,7 +22,8 @@ Admin UI: http://localhost:15672/#/
 Run consumer (from container)
 
 ```
-./bin/daemon/rabbitmq-cli-consumer -c ./bin/daemon/daemon.conf --executable ./bin/worker/worker.sh --verbose --strict-exit-code```
+./bin/daemon/rabbitmq-cli-consumer -c ./bin/daemon/daemon.conf --executable ./bin/worker/worker.sh --verbose --strict-exit-code
+```
 
 
 ## Additional info:
