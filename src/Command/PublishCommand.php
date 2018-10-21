@@ -2,6 +2,8 @@
 
 namespace App\Command;
 
+use App\Model\ProductModel;
+use App\ProductBuilder\FakeProductProvider;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
 use Symfony\Component\Console\Command\Command;
@@ -13,8 +15,8 @@ class PublishCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('poc:publish-product')
-            ->setDescription('Publish product');
+            ->setName('poc:product:publish')
+            ->setDescription('Publish products to RabbitMQ');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -23,28 +25,27 @@ class PublishCommand extends Command
         $channel = $connection->channel();
 
         $channel->queue_declare('create_product_queue', false, true, false, false);
+        $channel->queue_declare('create_product_model_queue', false, true, false, false);
 
-        for($i = 0; $i < 1000; $i++) {
+        $provider = new FakeProductProvider();
 
-            $productData = $this->getProductData();
-            $message = new AMQPMessage(json_encode($productData));
+        $i = 1;
 
-            $channel->basic_publish($message, '', 'create_product_queue');
+        foreach ($provider->getProductModelsAndProducts() as $product) {
+
+            $message = new AMQPMessage(json_encode($product->toArray()));
+
+            $queueName = $product instanceof ProductModel ? 'create_product_model_queue' : 'create_product_queue';
+
+            $channel->basic_publish($message, '', $queueName);
+
             $output->writeln(
-                sprintf('Product %d published', $i)
+                sprintf('Product %d published', $i++)
             );
         }
+
         $channel->close();
         $connection->close();
 
     }
-
-    private function getProductData()
-    {
-        return [
-            'family' => 'helmets',
-            'identifier' => tempnam('', 'product-'),
-        ];
-    }
-
 }
