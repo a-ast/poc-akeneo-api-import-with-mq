@@ -9,7 +9,6 @@ class Product extends AbstractProduct
         $currentDate = (new \DateTime())->format(DATE_W3C);
 
         $this->data = [
-            '_type' => 'product',
             'identifier' => $identifier,
             'family' => $family,
             'enabled' => $enabled,

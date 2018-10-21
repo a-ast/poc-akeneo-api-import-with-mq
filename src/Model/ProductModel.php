@@ -9,7 +9,6 @@ class ProductModel extends AbstractProduct
         $currentDate = (new \DateTime())->format(DATE_W3C);
 
         $this->data = [
-            '_type' => 'product-model',
             'code' => $code,
             'family_variant' => $familyVariant,
             'parent' => $parentModelCode,

@@ -2,11 +2,11 @@
 
 namespace App\Model;
 
-abstract class AbstractProduct
+abstract class AbstractProduct implements PimEntityInterface
 {
     protected $data = [];
 
-    public function toArray(): array
+    public function toStandardFormat(): array
     {
         return $this->data;
     }
