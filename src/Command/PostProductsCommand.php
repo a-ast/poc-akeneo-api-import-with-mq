@@ -26,9 +26,7 @@ class PostProductsCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $json = base64_decode($input->getArgument('event'));
-        $message = json_decode($json, true);
-
-        unset($message['_type']);
+        $messageItems = $this->getMessageItems($json);
 
         $clientBuilder = new \Akeneo\Pim\ApiClient\AkeneoPimClientBuilder('http://host.docker.internal:8080/');
         $client = $clientBuilder->buildAuthenticatedByPassword('1_3wdcmdz4fxgkgk480swwggwcogkwgksscgokkogk8ssowg88ks', '31f1il9m1k4k0ckw4w44gk80kggc4go0swggkw008g408kw4co', 'admin', 'admin');
@@ -39,13 +37,13 @@ class PostProductsCommand extends Command
 
         try {
 
-            $upsertedResources = $this->getApi($client, $dataType)->upsertList([$message]);
+            $upsertedResources = $this->getApi($client, $dataType)->upsertList($messageItems);
 
             foreach ($upsertedResources as $response) {
 
-                // identifier, status_code, message
+                // identifier|code, status_code, message, errors
 
-                if ($response['status_code'] !== 201) {
+                if (!in_array($response['status_code'], [201, 204])) {
                     print $response['message'];
 
                     // Exit 4 only for absence of parent, otherwise 3
@@ -73,5 +71,16 @@ class PostProductsCommand extends Command
         }
 
         return $client->getProductApi();
+    }
+
+    private function getMessageItems(string $json): array
+    {
+        $items = array_map(function($item) {
+            return json_decode($item, true);
+        }, explode(PHP_EOL, $json));
+
+        var_dump($items);
+
+        return $items;
     }
 }

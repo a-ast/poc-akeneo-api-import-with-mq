@@ -22,3 +22,20 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+
+    app.amqp.connection:
+        class: PhpAmqpLib\Connection\AMQPStreamConnection
+        arguments:
+            - 'rabbitmq'
+            - 5672
+            - 'guest'
+            - 'guest'
+
+    PhpAmqpLib\Connection\AbstractConnection: '@app.amqp.connection'
+
+    app.amqp.publisher:
+        class: App\Publisher\AmqpMessagePublisher
+        arguments:
+            - $connection: '@app.amqp.connection'
+

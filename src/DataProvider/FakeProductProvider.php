@@ -1,18 +1,20 @@
 <?php
 
-namespace App\ProductBuilder;
+namespace App\DataProvider;
 
+use App\Model\DataProviderInterface;
 use App\Model\Product;
 use App\Model\ProductModel;
+use Traversable;
 
-class FakeProductProvider
+class FakeProductProvider implements DataProviderInterface
 {
     /**
      * @return \Traversable|Product[]|ProductModel[]
      */
-    public function getProductModelsAndProducts(): \Traversable
+    public function getData(): Traversable
     {
-        for($i = 0; $i < 1; $i++) {
+        for ($i = 0; $i < 1000; $i++) {
 
             $modelCode = sprintf('product-model-%s', $this->getRandomCode());
 
