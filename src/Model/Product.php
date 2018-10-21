@@ -2,18 +2,18 @@
 
 namespace App\Model;
 
-class Product
+class Product extends AbstractProduct
 {
-    private $data = [];
-
-    public function __construct(string $identifier, string $family, bool $enabled)
+    public function __construct(string $family, string $identifier, string $modelCode, bool $enabled)
     {
         $currentDate = (new \DateTime())->format(DATE_W3C);
+
         $this->data = [
+            '_type' => 'product',
             'identifier' => $identifier,
             'family' => $family,
             'enabled' => $enabled,
-            'parent' => null,
+            'parent' => $modelCode,
             'groups' => [],
             'categories' => [],
             'values' => [],
@@ -21,10 +21,5 @@ class Product
             'created' => $currentDate,
             'updated' => $currentDate,
         ];
-    }
-
-    public function toArray(): array
-    {
-        return $this->data;
     }
 }
