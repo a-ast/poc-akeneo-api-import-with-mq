@@ -2,7 +2,7 @@
 
 ## Problem
 
-The CSV import of large datasets is slow and memory-demanding.
+CSV import of large datasets can be very slow and memory-demanding.
 
 ## Proposal
 
