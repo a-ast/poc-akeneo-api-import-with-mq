@@ -1,6 +1,6 @@
 <?php
 
-namespace App\ProductUpserter\Exceptions;
+namespace App\ProductUpdater\Exceptions;
 
 use Exception;
 

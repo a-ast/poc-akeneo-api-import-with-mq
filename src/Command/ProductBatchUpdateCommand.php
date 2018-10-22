@@ -3,8 +3,8 @@
 namespace App\Command;
 
 use Exception;
-use App\ProductUpserter\ApiProductBatchUpdater;
-use App\ProductUpserter\Exceptions\MissingParentException;
+use App\ProductUpdater\ApiProductBatchUpdater;
+use App\ProductUpdater\Exceptions\MissingParentException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -23,7 +23,7 @@ class ProductBatchUpdateCommand extends Command
     public const STATUS_STOP = 1;
 
     /**
-     * @var \App\ProductUpserter\ApiProductBatchUpdater
+     * @var \App\ProductUpdater\ApiProductBatchUpdater
      */
     private $updater;
 

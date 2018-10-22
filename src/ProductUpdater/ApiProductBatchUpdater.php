@@ -1,8 +1,8 @@
 <?php
 
-namespace App\ProductUpserter;
+namespace App\ProductUpdater;
 
-use App\ProductUpserter\Exceptions\MissingParentException;
+use App\ProductUpdater\Exceptions\MissingParentException;
 use Akeneo\Pim\ApiClient\AkeneoPimClientInterface;
 use Akeneo\Pim\ApiClient\Api\Operation\UpsertableResourceListInterface;
 use Symfony\Component\HttpFoundation\Response;
