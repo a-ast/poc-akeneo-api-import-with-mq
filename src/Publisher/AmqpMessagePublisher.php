@@ -48,12 +48,12 @@ class AmqpMessagePublisher
         foreach ($this->dataProvider->getData() as $product) {
 
             $queueName = $this->dispatcher->getDestination($product);
-
             $messages[$queueName][] = json_encode($product->toStandardFormat());
 
             $this->publishWhenBatchReady($channel, $messages);
         }
 
+        // publish remaining messages
         $this->publishWhenBatchReady($channel, $messages);
 
         $this->connection->close();
@@ -72,8 +72,7 @@ class AmqpMessagePublisher
             $message = new AMQPMessage(implode(PHP_EOL, $messagesToPublish));
             $channel->basic_publish($message, '', $queueName);
 
-            print sprintf('Messages dispatched to %s', $queueName) . PHP_EOL;
-
+            // add rest of the message to the pool
             $messagePool[$queueName] = array_slice($messages, self::BATCH_SIZE);
         }
     }
