@@ -7,12 +7,12 @@ The CSV import of large datasets is slow and memory-demanding.
 ## Proposal
 
 The idea is to import data using Akeneo REST API.
-The benefit can be achieved by parallelizing the API calls.
+The benefit can be achieved by parallelizing API calls.
 Multi-core processors can handle more requests than single-core ones.
 However, even for single-core CPUs, code running 
 across multiple threads can still be faster than single-threaded code.
 
-Additionally to it, quick REST API calls don't have memory issues 
+Additionally to it, REST API calls don't have memory issues 
 of long-running PHP processes that use Doctrine.
 
 
@@ -21,11 +21,9 @@ of long-running PHP processes that use Doctrine.
 1. Generate product data and publish it to RabbitMQ.
 1. Configure queue consumers to send product data to Akeneo REST API.
 
-## Implementation
+## PoC Implementation
 
-
-
-Data flow
+### Data flow
 
 ![Data flow](doc/images/dataflow.png)
 
@@ -35,9 +33,9 @@ Data flow
 Publisher responsibilities:
  
 1. Fetch product data from a data provider. 
-   An example of data providers: product generator, API of another system (e.g. legacy PIM).
+   Examples of data providers: product generator, API of another system (e.g. legacy PIM), file readers of a specific file format.
 
-   The implemented data provider for this demo application: [FakeDataProvider](DataProvider/FakeProductProvider.php)
+   The implemented data provider for this demo application: [FakeDataProvider](src/DataProvider/FakeProductProvider.php)
    (partly implemented).
 
 2. Format product data to the [standard format](https://docs.akeneo.com/2.1/technical_architecture/standard_format/).
@@ -53,7 +51,7 @@ Example of a message published in a product data queue:
 {"identifier":"product-1","family":"clothing","enabled":false,"parent":"product-model-1","groups":[],"categories":[],"values":{"size":[{"locale":null,"scope":null,"data":"m"}]},"associations":[],"created":"2018-10-21T21:23:03+00:00","updated":"2018-10-21T21:23:03+00:00"}
 ```
 
-Implementation: [AmqpMessagePublisher](Publisher/AmqpMessagePublisher.php)
+Implementation: [AmqpMessagePublisher](src/Publisher/AmqpMessagePublisher.php)
 
 ## Consumers
 
@@ -86,7 +84,7 @@ Worker responsibilities:
 
 2. Return correct result of processing to consumer to acknowledge, reject or re-queue messages.
 
-Implementation: [ApiProductBatchUpdater](ProductUpdater/ApiProductBatchUpdater.php)
+Implementation: [ApiProductBatchUpdater](src/ProductUpdater/ApiProductBatchUpdater.php)
 
 
 ## Current results
