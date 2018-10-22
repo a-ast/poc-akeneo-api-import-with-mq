@@ -51,15 +51,15 @@ class AmqpMessagePublisher
 
             $messages[$queueName][] = json_encode($product->toStandardFormat());
 
-            $this->publishIfBatchReady($channel, $messages);
+            $this->publishWhenBatchReady($channel, $messages);
         }
 
-        $this->publishIfBatchReady($channel, $messages);
+        $this->publishWhenBatchReady($channel, $messages);
 
         $this->connection->close();
     }
 
-    private function publishIfBatchReady(AMQPChannel $channel, array &$messagePool)
+    private function publishWhenBatchReady(AMQPChannel $channel, array &$messagePool)
     {
         foreach ($messagePool as $queueName => $messages) {
 
