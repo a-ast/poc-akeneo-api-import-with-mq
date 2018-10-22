@@ -39,3 +39,18 @@ services:
         arguments:
             - $connection: '@app.amqp.connection'
 
+    app.api.client_builder:
+        class: Akeneo\Pim\ApiClient\AkeneoPimClientBuilder
+        arguments:
+            - 'http://host.docker.internal:8080/'
+
+    app.api.client:
+        class: Akeneo\Pim\ApiClient\AkeneoPimClientInterface
+        factory: 'app.api.client_builder:buildAuthenticatedByPassword'
+        arguments:
+            - '1_4vxzjg4f77cw00kw0gsgkcc0kc088ogc8ckg4gs8ckgocos8cw'
+            - 'wg6ka8a28n444c08sws4k04o8s4sc8ggg804s4c8ww0kgkc8k'
+            - 'admin'
+            - 'admin'
+
+    Akeneo\Pim\ApiClient\AkeneoPimClientInterface: '@app.api.client'
