@@ -95,7 +95,7 @@ I was running the application in my local docker setup (2 CPUs, 5 GB RAM).
 * Consumers: 1 model consumer / 3 product consumers
 * Total time: 6 min
 
-*TO DO:* compare execution time and memory consumption with CSV import of the very same dataset. 
+**TO DO:** compare execution time and memory consumption with CSV import of the very same dataset. 
 
 ## Potential improvements
 
