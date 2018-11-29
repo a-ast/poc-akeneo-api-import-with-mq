@@ -12,9 +12,11 @@ class FakeProductProvider implements DataProviderInterface
     /**
      * @return \Traversable|Product[]|ProductModel[]
      */
+    const MODEL_COUNT = 1000;
+
     public function getData(): Traversable
     {
-        for ($i = 0; $i < 1000; $i++) {
+        for ($i = 0; $i < self::MODEL_COUNT; $i++) {
 
             $modelCode = sprintf('product-model-%s', $this->getRandomCode());
 
