@@ -25,7 +25,7 @@ class PublishCommand extends Command
     {
         $this
             ->setName('poc:product:publish')
-            ->setDescription('Publish products to RabbitMQ');
+            ->setDescription('Generate and publish products to RabbitMQ');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -33,5 +33,7 @@ class PublishCommand extends Command
         // @todo: callback
 
         $this->publisher->execute();
+
+        $output->writeln('Products and model have been published.');
     }
 }

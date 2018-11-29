@@ -41,6 +41,7 @@ class ProductBatchUpdateCommand extends Command
     {
         $this
             ->setName('poc:product:update')
+            ->setDescription('Update products in PIM using messages data form MQ')
             ->addArgument('message', InputArgument::REQUIRED)
             ->addOption('type', 't', InputOption::VALUE_REQUIRED)
         ;
