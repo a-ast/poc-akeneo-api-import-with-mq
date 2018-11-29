@@ -48,8 +48,8 @@ services:
         class: Akeneo\Pim\ApiClient\AkeneoPimClientInterface
         factory: 'app.api.client_builder:buildAuthenticatedByPassword'
         arguments:
-            - '1_4vxzjg4f77cw00kw0gsgkcc0kc088ogc8ckg4gs8ckgocos8cw'
-            - 'wg6ka8a28n444c08sws4k04o8s4sc8ggg804s4c8ww0kgkc8k'
+            - '1_5cx53h106r0owc00c0wgk8ss8oo0g48cswswg8koco0wsww4cg'
+            - '5kv2b9ofhqwwcogwwckocg08wogg8cgccgkss8ows0c880s88k'
             - 'admin'
             - 'admin'
 
