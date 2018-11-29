@@ -7,7 +7,7 @@ services:
     volumes:
       - './:/usr/src/app:delegated'
     environment:
-      PHP_EXTENSIONS: bcmath
+      PHP_EXTENSIONS: bcmath amqp
 
   rabbitmq:
     image: "rabbitmq:3-management"
